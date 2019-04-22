@@ -43,7 +43,11 @@ class block_winter extends block_base {
 
         // Load userdefined title and make sure it's never empty.
         if (empty($this->config->title)) {
-            $this->title = get_string('pluginname', 'block_winter');
+            if (empty($this->config->house)) {
+                $this->title = get_string('pluginname', 'block_winter');
+            } else {
+                $this->title = get_string('words:' . $this->config->house, 'block_winter');
+            }
         } else {
             $this->title = format_string($this->config->title, true, ['context' => $this->context]);
         }
@@ -61,19 +65,27 @@ class block_winter extends block_base {
         }
         $this->content = new stdClass;
 
+        // Premier.
         if (empty($this->config->premier)) {
             $this->config->premier = $defaultpremier;
         } else {
             // Premier information.
             $premierchapter = date("F j, Y", $this->config->premier);
-            $daysleft = date("d", $this->config->premier - time());
+            if ($this->config->premier < time()) {
+                // The chapter has been released yet.
+                $dayslefttxt = get_string('premier:released', 'block_winter');
+            } else {
+                $daysleft = date("d", $this->config->premier - time());
+                $dayslefttxt = get_string('premier:left', 'block_winter', $daysleft);
+            }
             // Write visual info.
             $outputhtml = html_writer::tag('b', get_string('premier:info', 'block_winter', $premierchapter));
             $outputhtml .= html_writer::empty_tag('br');
-            $outputhtml .= get_string('premier:left', 'block_winter', $daysleft);
+            $outputhtml .= $dayslefttxt;
             $this->content->text = $outputhtml;
         }
 
+        // House.
         if (empty($this->config->house)) {
             $this->config->house = $defaulthouse;
         } else {
@@ -84,6 +96,18 @@ class block_winter extends block_base {
             $outputhtml .= html_writer::empty_tag('br');
             $outputhtml .= html_writer::img($imgurl, get_string('house:' . $this->config->house, 'block_winter'), array('style' => 'max-width: 100%'));
             $this->content->footer = $outputhtml;
+        }
+
+        // More info.
+        if (empty($this->config->url)) {
+            $this->config->url = get_string('url:default', 'block_winter');
+        } else {
+            // URL parameters.
+            $url = new moodle_url($this->config->url);
+            // Writing HTML url information.
+            $outputhtml = html_writer::empty_tag('br');
+            $outputhtml .= html_writer::link($url, get_string('url:show', 'block_winter'), array('target' => '_blank'));
+            $this->content->footer .= $outputhtml;
         }
 
         if ($this->content !== NULL) {

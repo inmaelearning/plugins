@@ -43,9 +43,12 @@ class block_winter_edit_form extends block_edit_form {
             'baratheon' => get_string('house:baratheon', 'block_winter'),
             'martell' => get_string('house:martell', 'block_winter'),
             'bolton' => get_string('house:bolton', 'block_winter')
-        );
-        
+        );  
         $mform->addElement('select', 'config_house', get_string('house:select', 'block_winter'), $options);
+
+        // Write a link to more information.
+        $mform->addElement('text', 'config_url', get_string('url:info', 'block_winter'), $options);
+        $mform->setType('config_url', PARAM_URL);
     }
 
 }

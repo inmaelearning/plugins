@@ -45,8 +45,25 @@ $string['house:targaryen'] = 'Targaryen';
 $string['house:bolton'] = 'Bolton';
 $string['house:info'] = 'House {$a}';
 
+// House words.
+$string['words:lannister'] = 'Hear Me Roar';
+$string['words:arryn'] = 'As High As Honor';
+$string['words:martell'] = 'Unbowed, Unbent, Unbroken';
+$string['words:baratheon'] = 'Ours is the Fury';
+$string['words:tully'] = 'Family, Duty, Honor';
+$string['words:greyjoy'] = 'We Do Not Sow';
+$string['words:targaryen'] = 'Fire and Blood';
+$string['words:bolton'] = 'Our blades are Sharp';
+$string['words:stark'] = 'Winter is Coming';
+
 // Premier of the next chapter.
 $string['premier'] = 'Premier of next chapter of GOT';
 $string['premier:help'] = 'Select the date of premier of the next chapter of GOT.';
 $string['premier:left'] = '{$a} days left';
 $string['premier:info'] = 'Next chapter {$a}';
+$string['premier:released'] = 'Chapter released';
+
+// Url of more information about GOT.
+$string['url:info'] = 'Link to more info';
+$string['url:show'] = 'More info...';
+$string['url:default'] = 'https://en.wikipedia.org/wiki/Game_of_Thrones_(season_8)';
